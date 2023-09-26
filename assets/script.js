@@ -31,15 +31,16 @@ let showSlide = 0; //Slide qui part de 0 pour incrementer
 
 function updateCarousel() {
   if (showSlide < 0) {
-    showSlide = slides.length - 1;
+    showSlide = slides.length - 1; //length commence a 1 et pas 0 comme l'index
   } else if (showSlide >= slides.length) {
     showSlide = 0;
   }
 
   //remplacement des images/tagline dans le array
 
-  banner.src = "./assets/images/slideshow/" + slides[showSlide].image;
+  banner.src = `./assets/images/slideshow/${slides[showSlide].image}`;
   p.innerHTML = slides[showSlide].tagLine;
+  updateDot();
 }
 
 //creation des dots avec boucle for pour chaque images.
@@ -51,10 +52,12 @@ function creationDots() {
   }
 }
 creationDots();
+
 // dots active ou non selectionnés.
 function updateDot() {
   const allDots = document.querySelectorAll(".dot");
   for (let index = 0; index < allDots.length; index++) {
+    // On déclare la valeur de i / jusqu'ou on boncle / on incrémente i si la condition 2 n'est pas remplie
     const dot = allDots[index];
     if (index == showSlide) {
       dot.classList.add("dot_selected");
@@ -64,14 +67,39 @@ function updateDot() {
   }
 }
 
-arrowLeft.addEventListener("click", () => {
-  showSlide--;
+const handleArrowClick = (direction) => {
+  if (direction === "left") {
+    showSlide--;
+  } else if (direction === "right") {
+    showSlide++;
+  }
   updateCarousel();
-  updateDot();
+};
+
+arrowLeft.addEventListener("click", () => {
+  handleArrowClick("left");
+});
+arrowRight.addEventListener("click", () => {
+  handleArrowClick("right");
 });
 
-arrowRight.addEventListener("click", () => {
-  showSlide++;
+const initializeCarousel = () => {
+  showSlide = 0;
   updateCarousel();
-  updateDot();
-});
+};
+
+initializeCarousel();
+
+// definition de orienté objet : La programmation orientée objet est un modèle de langage de programmation qui s'articule autour d'objets et de données, plutôt que d'actions et de logique
+
+// arrowLeft.addEventListener("click", () => {
+//   showSlide--;
+//   updateCarousel();
+//   //updateDot();
+// });
+
+// arrowRight.addEventListener("click", () => {
+//   showSlide++;
+//   updateCarousel();
+//   //updateDot();
+// });
