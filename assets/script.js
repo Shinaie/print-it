@@ -44,6 +44,7 @@ function updateCarousel() {
 }
 
 //creation des dots avec boucle for pour chaque images.
+
 function creationDots() {
   for (let index = 0; index < slides.length; index++) {
     const dot = document.createElement("div");
@@ -53,13 +54,11 @@ function creationDots() {
 }
 creationDots();
 
-// dots active ou non selectionnés.
 function updateDot() {
   const allDots = document.querySelectorAll(".dot");
   for (let index = 0; index < allDots.length; index++) {
-    // On déclare la valeur de i / jusqu'ou on boncle / on incrémente i si la condition 2 n'est pas remplie
     const dot = allDots[index];
-    if (index == showSlide) {
+    if (index === showSlide) {
       dot.classList.add("dot_selected");
     } else {
       dot.classList.remove("dot_selected");
